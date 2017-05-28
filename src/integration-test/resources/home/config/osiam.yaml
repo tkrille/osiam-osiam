@@ -22,24 +22,11 @@
 # SOFTWARE.
 #
 
-#
-# Default properties for OSIAM
-#
-
-logging.level:
-  # Default log level is ERROR
-  '': ERROR
-  org.springframework: WARN
-  org.osiam: ${osiam.logging.level:INFO}
-
-spring.main.banner-mode: 'console'
-spring.thymeleaf.prefix: file:${osiam.home}/templates/web/
-spring.jpa.hibernate.ddl-auto: none
-server.port: ${osiam.port:8080}
-security.oauth2.resource.filterOrder: 3
-
-management.context-path: /management
-
-flyway:
-  locations: db/migration/${osiam.db.vendor}
-  baseline-on-migrate: true
+osiam:
+#  port: 8080
+  db:
+    vendor: h2
+    driver: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    username: sa
+    password:

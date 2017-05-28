@@ -22,6 +22,39 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        groovy {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/groovy')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/tests/${name}")
+}
+
 publishing {
     publications {
         OsiamPublication(MavenPublication) {
@@ -127,6 +160,8 @@ dependencies {
     testCompile 'com.jayway.restassured:json-path:2.9.0'
     testCompile 'com.jayway.jsonpath:json-path:2.2.0'
     testCompile 'nl.jqno.equalsverifier:equalsverifier:1.7.8'
+
+    integrationTestCompile 'org.spockframework:spock-spring'
 
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
