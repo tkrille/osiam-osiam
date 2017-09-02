@@ -1,0 +1,35 @@
+version: '3.2'
+services:
+  postgres:
+    build: ./src/test/docker/postgres
+    ports:
+    - '15432:5432'
+    environment:
+      POSTGRES_USER: ong
+      POSTGRES_PASSWORD: b4s3dg0d
+      LANG: de_DE.utf8
+  ldap:
+    build: ./src/test/docker/ldap
+    ports:
+    - '10389:389'
+    environment:
+      LDAP_ORGANISATION: 'OSIAM ITs'
+      LDAP_DOMAIN: 'osiam.org'
+      LDAP_TLS: 'false'
+  osiam:
+    build: ./src/test/docker/osiam
+    depends_on:
+    - postgres
+    - ldap
+    ports:
+    - '8180:8180'
+#  mysql:
+#    image: mysql:5.7
+#    container_name: osiam-dev-mysql
+#    ports:
+#    - "3306:3306"
+#    environment:
+#      MYSQL_DATABASE: osiam
+#      MYSQL_USER: osiam
+#      MYSQL_PASSWORD: osiam
+#      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'

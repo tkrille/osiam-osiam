@@ -13,10 +13,12 @@ plugins {
     id 'org.springframework.boot' version '1.5.7.RELEASE'
 }
 
-group = 'org.osiam'
+allprojects {
+    group = 'org.osiam'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
 
 repositories {
     mavenCentral()

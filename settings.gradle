@@ -1,1 +1,3 @@
 rootProject.name = 'osiam'
+
+include 'integration-tests'

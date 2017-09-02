@@ -6,7 +6,7 @@
 *.war
 hs_err_pid*
 .gradle
-/build/
+build/
 
 # OSIAM dev
 .osiam/

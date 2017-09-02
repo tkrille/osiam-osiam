@@ -1,0 +1,7 @@
+links:
+  - ${database.container}
+  - ldap
+
+ports:
+#  - ${osiam.port}
+  - 8000
